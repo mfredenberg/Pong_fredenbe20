@@ -32,6 +32,11 @@ public class PongMainActivity extends Activity {
         // Connect the animation surface with the animator
         AnimationSurface mySurface = (AnimationSurface) this
                 .findViewById(R.id.animationSurface);
+
+        PongGame pongGame = new PongGame();
+        pongGame.setHeight(mySurface.getHeight());
+        pongGame.setWidth(mySurface.getWidth());
         mySurface.setAnimator(new TestAnimator());
+
     }
 }
