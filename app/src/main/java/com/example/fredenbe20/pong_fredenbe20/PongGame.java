@@ -43,8 +43,8 @@ public class PongGame implements Animator {
     @Override
     public void tick(Canvas canvas) {
         if(activeBalls.isEmpty()){
-            activeBalls.add(new Ball(rand.nextInt(1000) + 100, rand.nextInt(1000) + 100,
-                    rand.nextInt(50), rand.nextBoolean(), rand.nextBoolean()));
+            activeBalls.add(new Ball(rand.nextInt(50), rand.nextInt(50),
+                    rand.nextInt(20) + 10, rand.nextBoolean(), rand.nextBoolean()));
         }
         Paint walls = new Paint();
         walls.setColor(Color.CYAN);
@@ -73,18 +73,35 @@ public class PongGame implements Animator {
         }
 
         for (Ball b : activeBalls) {
-            int xNum = (b.getxCount()*b.getSpeed())%4000;
-            int yNum = (b.getyCount()*b.getSpeed())%2000;
+            boolean playable = false;
+            int xNum = (b.getxCount()*b.getSpeed());
+            int yNum = (b.getyCount()*b.getSpeed());
+
+                if(xNum > 10 && xNum <= width && yNum >= 0 && yNum <= height){
+
+                }else {
+                    b.randomCoords(rand.nextInt(20), rand.nextInt(20));
+                }
+
+
+
+
+
             b.setxCoord(xNum);
             b.setyCoord(yNum);
 
-            if(yNum > height || yNum < 0){
+            if(b.getyCoord() >= height-30 || b.getyCoord() < 30){
                 b.switchyBackwards();
             }
-            if(xNum < 0 || xNum > width){
+            if(xNum < 30){
                 b.switchxBackwards();
+
             }
-            /*if(difficulty.equals("Easy")){
+            if(xNum > width){
+                b.randomCoords(rand.nextInt(50), rand.nextInt(50));
+
+            }
+            if(difficulty.equals("Easy")){
                 if(xNum > width - 30 && yNum >= height/3 && yNum <= (float)(height * (2.0/3.0))){
                     b.switchxBackwards();
                 }
@@ -94,7 +111,8 @@ public class PongGame implements Animator {
                 if(xNum > width && yNum >= (height/2)-100 && yNum <= (height/2)+100){
                     b.switchxBackwards();
                 }
-            }*/
+            }
+
 
         }
 
@@ -112,12 +130,10 @@ public class PongGame implements Animator {
     public void onTouch(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height), rand.nextInt(50),
+            activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height), rand.nextInt(20)+10,
                     rand.nextBoolean(), rand.nextBoolean()));
         }
     }
 
 
-    public void setWidth(int newWidth){width = newWidth;}
-    public void setHeight(int newHeight){height = newHeight;}
 }

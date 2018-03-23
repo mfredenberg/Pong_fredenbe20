@@ -1,5 +1,7 @@
 package com.example.fredenbe20.pong_fredenbe20;
 
+import java.util.Random;
+
 /**
  * Created by fredenbe20 on 3/22/2018.
  */
@@ -12,13 +14,12 @@ public class Ball {
     private int yCount;
     private boolean xBackwards;
     private boolean yBackwards;
+    Random rand = new Random();
 
     public Ball(int newX, int newY, int newSpeed, boolean xBack, boolean yBack){
-        xCoord = newX;
-        yCoord = newY;
         speed = newSpeed;
-        xCount = 0;
-        yCount = 0;
+        xCount = newX;
+        yCount = newY;
         xBackwards = xBack;
         yBackwards = yBack;
     }
@@ -41,5 +42,11 @@ public class Ball {
     public void switchxBackwards(){xBackwards = !xBackwards;}
     public void switchyBackwards(){yBackwards = !yBackwards;}
 
+    public void randomCoords(int x, int y){
+        xCount = x;
+        yCount = y;
+        xBackwards = rand.nextBoolean();
+        yBackwards = rand.nextBoolean();
+    }
 
 }
