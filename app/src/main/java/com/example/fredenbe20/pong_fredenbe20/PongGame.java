@@ -14,13 +14,8 @@ import java.util.Random;
 
 public class PongGame implements Animator {
     Random rand = new Random();
-    private int xCount = 0;
-    private int yCount = 0;
-    private boolean xBackwards = false;
-    private boolean yBackwards = false;
     private int width = 2000;
     private int height = 1500;
-    private int speed = 20;
     private String difficulty = "Easy";
     ArrayList <Ball> activeBalls = new ArrayList<>();
 
@@ -48,7 +43,7 @@ public class PongGame implements Animator {
     @Override
     public void tick(Canvas canvas) {
         if(activeBalls.isEmpty()){
-            activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height),
+            activeBalls.add(new Ball(rand.nextInt(1000) + 100, rand.nextInt(1000) + 100,
                     rand.nextInt(50), rand.nextBoolean(), rand.nextBoolean()));
         }
         Paint walls = new Paint();
@@ -78,28 +73,28 @@ public class PongGame implements Animator {
         }
 
         for (Ball b : activeBalls) {
-            int xNum = (b.getxCount()*b.getSpeed())%width;
-            int yNum = (b.getyCount()*b.getSpeed())%height;
+            int xNum = (b.getxCount()*b.getSpeed())%4000;
+            int yNum = (b.getyCount()*b.getSpeed())%2000;
             b.setxCoord(xNum);
             b.setyCoord(yNum);
 
-            if(yNum >= height || yNum < 0){
+            if(yNum > height || yNum < 0){
                 b.switchyBackwards();
             }
-            if(xNum < 0){
+            if(xNum < 0 || xNum > width){
                 b.switchxBackwards();
             }
-            if(difficulty == "Easy"){
-                if(xNum >= height/3 && xNum <= (float)(height * (2.0/3.0))){
+            /*if(difficulty.equals("Easy")){
+                if(xNum > width - 30 && yNum >= height/3 && yNum <= (float)(height * (2.0/3.0))){
                     b.switchxBackwards();
                 }
 
             }
             else{
-                if(xNum >= (height/2)-100 && xNum <= (height/2)+100){
+                if(xNum > width && yNum >= (height/2)-100 && yNum <= (height/2)+100){
                     b.switchxBackwards();
                 }
-            }
+            }*/
 
         }
 
@@ -115,7 +110,11 @@ public class PongGame implements Animator {
 
     @Override
     public void onTouch(MotionEvent event) {
-
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height), rand.nextInt(50),
+                    rand.nextBoolean(), rand.nextBoolean()));
+        }
     }
 
 
