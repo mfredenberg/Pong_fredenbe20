@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 public class PongMainActivity extends Activity {
 
     /**
-     * creates an AnimationSurface containing a TestAnimator.
+     * creates an AnimationSurface containing a PongGame.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -4,12 +4,30 @@ import java.util.Random;
 
 /**
  * Created by fredenbe20 on 3/22/2018.
+ * Mason Fredenberg
  */
 
+/**
+ External Citation
+ Date: 20 March 2018
+ Problem: Couldnt figure out how to get more than one ball
+ Resource:
+ Jason Twigg
+ Solution: Ball Class
+ */
 public class Ball {
     private int xCoord;
     private int yCoord;
     private int speed;
+
+    /**
+     External Citation
+     Date: 20 March 2018
+     Problem: Couldnt figure out how to get ball to bounce
+     Resource:
+     Stelios Papoutsakis
+     Solution: Use two booleans and two counts to keep track of each ball.
+     */
     private int xCount;
     private int yCount;
     private boolean xBackwards;
