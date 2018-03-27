@@ -44,5 +44,9 @@ public class Paddle {
     public int getLeft(){return left;}
     public int getBottom(){return bottom;}
     public int getRight(){return right;}
+    public double getMiddle(){return middle;}
+    public double getMidToEnd(){return midToEnd;
+    public void setMiddle(double newMid){middle = newMid;}
+
 
 }
