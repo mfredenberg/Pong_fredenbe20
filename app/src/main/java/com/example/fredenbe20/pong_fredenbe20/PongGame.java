@@ -4,6 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
+import android.view.View;
+
+import com.example.fredenbe20.pong_fredenbe20.Animation.Animator;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,10 +18,11 @@ import java.util.Random;
 
 public class PongGame implements Animator {
     Random rand = new Random();//RNG
+    ArrayList <Ball> activeBalls = new ArrayList<>();//holds all Ball objects on screen
     private int width = 2000;//max x dimention
     private int height = 1500;//max y dimention
-    private String difficulty = "Easy";//difficulty level
-    ArrayList <Ball> activeBalls = new ArrayList<>();//holds all Ball objects on screen
+    Paddle humanPaddle = new Paddle(width - 30, (height/2) - 100, width, (height/2) + 150);
+
 
 
     @Override
@@ -56,13 +60,11 @@ public class PongGame implements Animator {
         canvas.drawRect(0, 0, 30, height, walls);
         canvas.drawRect(0, height - 30, width, height, walls);
 
-        //paddle based on difficulty
-        if(difficulty.equals("Easy")){
-            canvas.drawRect(width - 30, height/3, width, (float)(height * (2.0/3.0)), walls);
 
-        } else{
-            canvas.drawRect(width - 30, (height/2) - 100, width, (height/2) + 100, walls);
-        }
+
+
+        humanPaddle.drawPaddle(canvas, walls);
+
         //either increments or decrements based on the two booleans
         for (Ball b: activeBalls) {
             if(b.isxBackwards()) {
@@ -99,7 +101,7 @@ public class PongGame implements Animator {
             if(b.getyCoord() >= height-30 || b.getyCoord() < 30){
                 b.switchyBackwards();
             }
-            if(xNum < 30){
+            if(xNum <= 30){
                 b.switchxBackwards();
 
             }
@@ -107,17 +109,12 @@ public class PongGame implements Animator {
                 b.randomCoords(rand.nextInt(50), rand.nextInt(50));
 
             }
-            if(difficulty.equals("Easy")){
-                if(xNum > width - 30 && yNum >= height/3 && yNum <= (float)(height * (2.0/3.0))){
-                    b.switchxBackwards();
-                }
 
-            }
-            else{
-                if(xNum > width && yNum >= (height/2)-100 && yNum <= (height/2)+100){
+
+            if(xNum > humanPaddle.getLeft() && yNum >= humanPaddle.getTop() && yNum <= humanPaddle.getBottom()){
                     b.switchxBackwards();
-                }
             }
+
 
 
         }
@@ -134,12 +131,32 @@ public class PongGame implements Animator {
 
     @Override
     public void onTouch(MotionEvent event) {
+        /**
+         External Citation
+         Date: 27 March 2018
+         Problem: Couldnt figure out how to get the location of the touch
+         Resource:
+         https://stackoverflow.com/questions/3476779/how-to-get-the-touch-position-in-android
+         Solution: event.getY();
+         */
+
+        int y = (int)event.getY();
+
+        humanPaddle.updatePosition(y);
         if (event.getAction() == MotionEvent.ACTION_DOWN)
         {
-            activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height), rand.nextInt(20)+10,
-                    rand.nextBoolean(), rand.nextBoolean()));
+
+
         }
     }
+
+    public void addBall(){
+        activeBalls.add(new Ball(rand.nextInt(width), rand.nextInt(height), rand.nextInt(20)+10,
+                rand.nextBoolean(), rand.nextBoolean()));
+    }
+
+
+
 
 
 }

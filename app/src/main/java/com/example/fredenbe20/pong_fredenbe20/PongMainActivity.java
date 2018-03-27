@@ -1,12 +1,14 @@
 package com.example.fredenbe20.pong_fredenbe20;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
+
+import com.example.fredenbe20.pong_fredenbe20.Animation.AnimationSurface;
 
 /**
  * PongMainActivity
@@ -19,7 +21,7 @@ import android.widget.LinearLayout;
  * @version July 2013
  *
  */
-public class PongMainActivity extends Activity {
+public class PongMainActivity extends Activity implements View.OnClickListener{
 
     /**
      * creates an AnimationSurface containing a PongGame.
@@ -32,7 +34,22 @@ public class PongMainActivity extends Activity {
         // Connect the animation surface with the animator
         AnimationSurface mySurface = (AnimationSurface) this
                 .findViewById(R.id.animationSurface);
-        mySurface.setAnimator(new PongGame());
+        final PongGame pongGame = new PongGame();
+        mySurface.setAnimator(pongGame);
+
+        Button ballButton = (Button) this.findViewById(R.id.ballButton);
+        ballButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pongGame.addBall();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

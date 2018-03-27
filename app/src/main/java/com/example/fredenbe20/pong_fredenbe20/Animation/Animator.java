@@ -1,4 +1,4 @@
-package com.example.fredenbe20.pong_fredenbe20;
+package com.example.fredenbe20.pong_fredenbe20.Animation;
 
 /**
  * Created by fredenbe20 on 3/21/2018.
