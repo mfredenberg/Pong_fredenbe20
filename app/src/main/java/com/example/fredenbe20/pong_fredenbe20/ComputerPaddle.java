@@ -16,9 +16,17 @@ public class ComputerPaddle extends Paddle {
     Moves the ball toward the ball, allowing it to be fast enough to catch it,
     but also slow enough to miss occasionally
      */
-    public void moveTowardBall(int ballPos){
-        if(this.getMiddle() < ballPos){
+    public void moveTowardBall(int ballPosY){
+        if(this.getMiddle() < ballPosY){
             this.setMiddle(this.getMiddle() + 20);
+            //if the middle is lower than the ball, raise the middle value
+        }
+        else if(this.getMiddle() > ballPosY){
+            this.setMiddle(this.getMiddle() - 20);
+            //if the middle is higher than the ball, lower the middle value
+        }
+        else{
+
         }
     }
 

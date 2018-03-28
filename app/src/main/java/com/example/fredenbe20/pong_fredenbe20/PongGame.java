@@ -124,6 +124,8 @@ public class PongGame implements Animator {
             canvas.drawCircle(b.getxCoord(), b.getyCoord(), 20, red);
         }
 
+        compPaddle.moveTowardBall(activeBalls.get(0).getyCoord());
+
 
     }
 
