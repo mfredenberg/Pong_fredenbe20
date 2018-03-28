@@ -61,6 +61,7 @@ public class PongGame implements Animator {
         canvas.drawRect(0, 0, width, 30, walls );
         //canvas.drawRect(0, 0, 30, height, walls);
         canvas.drawRect(0, height - 30, width, height, walls);
+        compPaddle.moveTowardBall(activeBalls.get(0).getyCoord());
 
 
         //drawing the paddles
@@ -99,7 +100,7 @@ public class PongGame implements Animator {
             if(b.getyCoord() >= height-30 || b.getyCoord() < 30){
                 b.switchyBackwards();
             }
-            if(xNum <= compPaddle.getRight() && xNum >= compPaddle.getLeft() && yNum >= compPaddle.getTop() && yNum <= humanPaddle.getBottom()){
+            if(xNum <= compPaddle.getRight() && yNum >= compPaddle.getTop() && yNum <= humanPaddle.getBottom()){
                 b.switchxBackwards();
 
             }
@@ -109,7 +110,7 @@ public class PongGame implements Animator {
             }
 
 
-            if(xNum >= humanPaddle.getLeft() && xNum <= compPaddle.getRight() && yNum >= humanPaddle.getTop() && yNum <= humanPaddle.getBottom()){
+            if(xNum >= humanPaddle.getLeft()  && yNum >= humanPaddle.getTop() && yNum <= humanPaddle.getBottom()){
                     b.switchxBackwards();
             }
 
@@ -124,7 +125,6 @@ public class PongGame implements Animator {
             canvas.drawCircle(b.getxCoord(), b.getyCoord(), 20, red);
         }
 
-        compPaddle.moveTowardBall(activeBalls.get(0).getyCoord());
 
 
     }

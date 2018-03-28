@@ -18,11 +18,11 @@ public class ComputerPaddle extends Paddle {
      */
     public void moveTowardBall(int ballPosY){
         if(this.getMiddle() < ballPosY){
-            this.setMiddle(this.getMiddle() + 20);
+            this.updatePosition((int)this.getMiddle() + 20);
             //if the middle is lower than the ball, raise the middle value
         }
         else if(this.getMiddle() > ballPosY){
-            this.setMiddle(this.getMiddle() - 20);
+            this.updatePosition((int)this.getMiddle() - 20);
             //if the middle is higher than the ball, lower the middle value
         }
         else{
