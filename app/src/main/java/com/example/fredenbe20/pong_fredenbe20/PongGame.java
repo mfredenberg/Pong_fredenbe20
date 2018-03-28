@@ -19,10 +19,12 @@ import java.util.Random;
 public class PongGame implements Animator {
     Random rand = new Random();//RNG
     ArrayList <Ball> activeBalls = new ArrayList<>();//holds all Ball objects on screen
-    private int width = 2000;//max x dimention
-    private int height = 1500;//max y dimention
-    Paddle humanPaddle = new Paddle(width - 30, (height/2) - 100, width, (height/2) + 150);
+    private int width = 2000;//max x dimension
+    private int height = 1500;//max y dimension
 
+    //initializing both paddles
+    Paddle humanPaddle = new Paddle(width - 30, (height/2) - 100, width, (height/2) + 150);
+    ComputerPaddle compPaddle = new ComputerPaddle(0, (height/2) - 100, 30, (height/2) + 150);
 
 
     @Override
@@ -57,12 +59,12 @@ public class PongGame implements Animator {
         Paint walls = new Paint();
         walls.setColor(Color.CYAN);
         canvas.drawRect(0, 0, width, 30, walls );
-        canvas.drawRect(0, 0, 30, height, walls);
+        //canvas.drawRect(0, 0, 30, height, walls);
         canvas.drawRect(0, height - 30, width, height, walls);
 
 
-
-
+        //drawing the paddles
+        compPaddle.drawPaddle(canvas, walls);
         humanPaddle.drawPaddle(canvas, walls);
 
         //either increments or decrements based on the two booleans
@@ -91,17 +93,13 @@ public class PongGame implements Animator {
                     b.randomCoords(rand.nextInt(20), rand.nextInt(20));
                 }
 
-
-
-
-
             b.setxCoord(xNum);
             b.setyCoord(yNum);
 
             if(b.getyCoord() >= height-30 || b.getyCoord() < 30){
                 b.switchyBackwards();
             }
-            if(xNum <= 30){
+            if(xNum <= compPaddle.getRight() && xNum >= compPaddle.getLeft() && yNum >= compPaddle.getTop() && yNum <= humanPaddle.getBottom()){
                 b.switchxBackwards();
 
             }
@@ -111,7 +109,7 @@ public class PongGame implements Animator {
             }
 
 
-            if(xNum > humanPaddle.getLeft() && yNum >= humanPaddle.getTop() && yNum <= humanPaddle.getBottom()){
+            if(xNum >= humanPaddle.getLeft() && xNum <= compPaddle.getRight() && yNum >= humanPaddle.getTop() && yNum <= humanPaddle.getBottom()){
                     b.switchxBackwards();
             }
 
